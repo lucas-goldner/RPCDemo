@@ -1,6 +1,6 @@
 package main
 
-import "fmt"
+type API int
 
 type Item struct {
 	title string
@@ -9,7 +9,7 @@ type Item struct {
 
 var database []Item
 
-func GetByName(title string) Item {
+func (a *API) GetByName(title string, reply *Item) error {
 	var getItem Item
 	for _, val := range database {
 		if val.title == title {
@@ -17,26 +17,30 @@ func GetByName(title string) Item {
 		}
 	}
 
-	return getItem
+	*reply = getItem
+
+	return nil
 }
 
-func AddItem(item Item) Item {
+func (a *API) AddItem(item Item, reply *Item) error {
 	database = append(database, item)
-	return item
+	*reply = item
+	return nil
 }
 
-func EditItem(title string, edit Item) Item {
+func (a *API) EditItem(edit Item, reply *Item) error {
 	var changed Item
 	for idx, val := range database {
 		if val.title == edit.title {
-			database[idx] = edit
+			database[idx] = Item{edit.title, edit.body}
 			changed = edit
 		}
 	}
-	return changed
+	*reply = edit
+	return nil
 }
 
-func DelItem(item Item) Item {
+func (a *API) DelItem(item Item, reply *Item) error {
 	var del Item
 
 	for idx, val := range database {
@@ -46,27 +50,27 @@ func DelItem(item Item) Item {
 			break
 		}
 	}
-
-	return del
+	*reply = del
+	return nil
 }
 
 func main() {
-	fmt.Println("inital database: ", database)
-	a := Item{"first", "a test item"}
-	b := Item{"second", "a second item"}
-	c := Item{"third", "a third item"}
+	// fmt.Println("inital database: ", database)
+	// a := Item{"first", "a test item"}
+	// b := Item{"second", "a second item"}
+	// c := Item{"third", "a third item"}
 
-	AddItem(a)
-	AddItem(b)
-	AddItem(c)
-	fmt.Println("second database: ", database)
+	// AddItem(a)
+	// AddItem(b)
+	// AddItem(c)
+	// fmt.Println("second database: ", database)
 
-	DelItem(b)
-	fmt.Println("third database: ", database)
+	// DelItem(b)
+	// fmt.Println("third database: ", database)
 
-	EditItem("third", Item{"fourth", "a new item"})
+	// EditItem("third", Item{"fourth", "a new item"})
 
-	x := GetByName("fourth")
-	y := GetByName("first")
-	fmt.Println(x, y)
+	// x := GetByName("fourth")
+	// y := GetByName("first")
+	// fmt.Println(x, y)
 }
