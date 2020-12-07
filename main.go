@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 type Item struct {
 	title string
 	body  string
@@ -49,5 +51,22 @@ func DelItem(item Item) Item {
 }
 
 func main() {
+	fmt.Println("inital database: ", database)
+	a := Item{"first", "a test item"}
+	b := Item{"second", "a second item"}
+	c := Item{"third", "a third item"}
 
+	AddItem(a)
+	AddItem(b)
+	AddItem(c)
+	fmt.Println("second database: ", database)
+
+	DelItem(b)
+	fmt.Println("third database: ", database)
+
+	EditItem("third", Item{"fourth", "a new item"})
+
+	x := GetByName("fourth")
+	y := GetByName("first")
+	fmt.Println(x, y)
 }
