@@ -36,7 +36,7 @@ func (a *API) EditItem(edit Item, reply *Item) error {
 			changed = edit
 		}
 	}
-	*reply = edit
+	*reply = changed
 	return nil
 }
 
