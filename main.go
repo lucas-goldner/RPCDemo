@@ -67,7 +67,7 @@ func main() {
 
 	rpc.HandleHTTP()
 
-	listener, err := net.Listen("tcp", "4230")
+	listener, err := net.Listen("tcp", ":4230")
 
 	if err != nil {
 		log.Fatal("error registering API", err)
