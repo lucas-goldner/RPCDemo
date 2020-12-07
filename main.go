@@ -34,15 +34,17 @@ func EditItem(title string, edit Item) Item {
 	return changed
 }
 
-func DelItem(item Item) {
+func DelItem(item Item) Item {
 	var del Item
+
 	for idx, val := range database {
-		if val.title == edit.title {
+		if val.title == item.title && val.body == item.body {
 			database = append(database[:idx], database[idx+1:]...)
 			del = item
 			break
 		}
 	}
+
 	return del
 }
 
